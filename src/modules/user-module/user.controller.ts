@@ -15,7 +15,20 @@ export class UserController {
   // 通过用户名查询用户
   @Get('/selectByName')
   selectUserByName(@Query('username') username: string): Promise<CommonTypes.CommonResult> {
-    console.log(typeof username)
     return this.userService.selectUserByName(username)
+  }
+
+  // 登录
+  @Post('/login')
+  login(
+    @Body() userInfo: { username: string; password: string }
+  ): Promise<CommonTypes.CommonResult> {
+    return this.userService.login(userInfo)
+  }
+
+  // 通过id查询用户信息
+  @Get('/selectById')
+  selectUserById(@Query('userId') userId: string): Promise<CommonTypes.CommonResult> {
+    return this.userService.selectUserById(userId)
   }
 }

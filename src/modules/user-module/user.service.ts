@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { Repository, Like } from 'typeorm'
 import { InjectRepository } from '@nestjs/typeorm'
-import { hashSync } from 'bcrypt'
+import { compareSync, hashSync } from 'bcrypt'
 import { CommonTypes } from '../../types'
 import { User } from './entity/user.entity'
 import { StatusCodeEnum } from '../../common/constants'
@@ -35,5 +35,38 @@ export class UserService {
       return { status: StatusCodeEnum.OK, message: '处理成功', data: users }
     }
     return { status: StatusCodeEnum.FAIL, message: '用户名不能为空', data: null }
+  }
+
+  // 登陆
+  async login(userInfo: { username: string; password: string }): Promise<CommonTypes.CommonResult> {
+    const { username, password } = userInfo
+    if (username && password) {
+      const user = await this.userRepository.findOne({ username })
+      if (user) {
+        const isMatch = compareSync(password, user.password)
+        if (isMatch) {
+          delete user.password
+          return { status: StatusCodeEnum.OK, message: '登录成功', data: user }
+        }
+      }
+      return { status: StatusCodeEnum.FAIL, message: '账号或密码错误', data: null }
+    }
+    return { status: StatusCodeEnum.ERROR, message: '账号和密码不能为空', data: null }
+  }
+
+  // 通过id查询用户信息
+  async selectUserById(userId: string): Promise<CommonTypes.CommonResult> {
+    if (userId) {
+      const user = await this.userRepository.findOne({
+        select: ['userId', 'username', 'avatar', 'role', 'tag', 'createTime'],
+        where: { userId }
+      })
+      console.log(user)
+      if (user) {
+        return { status: StatusCodeEnum.OK, message: '获取用户信息成功', data: user }
+      }
+      return { status: StatusCodeEnum.FAIL, message: '用户不存在', data: null }
+    }
+    return { status: StatusCodeEnum.ERROR, message: '用户id不能为空', data: null }
   }
 }
