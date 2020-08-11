@@ -6,6 +6,10 @@ import { User } from './entity/user.entity'
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
+  @Get('/test')
+  test() {
+    return 'Hello World!'
+  }
   // 添加用户（注册新用户）
   @Post('/register')
   addUser(@Body() user: User): Promise<CommonTypes.CommonResult> {
