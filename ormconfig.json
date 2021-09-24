@@ -1,0 +1,10 @@
+{
+  "type": "mysql",
+  "host": "sql.wsfdb.cn",
+  "port": 3306,
+  "username": "ivanadmin",
+  "password": "root",
+  "database": "ivanadmin",
+  "entities": ["src/**/**.entity{.ts,.js}"],
+  "synchronize": true
+}

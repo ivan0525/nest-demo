@@ -1,0 +1,31 @@
+### 新增
+POST http://10.60.61.145:3000/api/user/users HTTP/1.1
+content-type: application/json
+
+{
+  "user": {
+    "username": "Jack",
+    "email": "Jack@qq.com",
+    "password": "123456"
+  }
+}
+
+### 登陆
+POST http://10.60.61.145:3000/api/user/users/login HTTP/1.1
+content-type: application/json
+
+{
+  "user": {
+    "email": "Jack@qq.com",
+    "password": "123456"
+  }
+}
+
+### 获取用户
+GET http://10.60.61.145:3000/api/user/user HTTP/1.1
+content-type: application/json
+Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJKYWNrIiwiZW1haWwiOiJKYWNrQHFxLmNvbSIsImV4cCI6MTYzNzY1NTM4OC4yOSwiaWF0IjoxNjMyNDcxMzg4fQ.jVVcAjmL5aLwGnwwECT_V4ViEgfqRFeland5MbZZKFg
+
+{
+  "email": "Jack@qq.com"
+}
