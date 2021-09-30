@@ -14,4 +14,7 @@ export class CreateUserDto {
   @ApiProperty()
   @IsNotEmpty()
   readonly password: string;
+
+  @ApiProperty()
+  readonly hobby: string;
 }

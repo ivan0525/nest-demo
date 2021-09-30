@@ -22,6 +22,9 @@ export class UserEntity {
   @Column({default: ''})
   image: string;
 
+  @Column({default: ''})
+  hobby: string;
+
   @Column()
   password: string;
 

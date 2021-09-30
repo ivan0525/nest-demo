@@ -15,6 +15,9 @@ export class UserData {
 
   @ApiProperty()
   image?: string;
+
+  @ApiProperty()
+  hobby?: string;
 }
 
 
